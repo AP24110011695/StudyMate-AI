@@ -28,3 +28,9 @@ body {
 h1 {
     font-size: 32px;
 }
+.cards {
+    margin-top: 35px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
