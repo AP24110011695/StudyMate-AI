@@ -6,6 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
+    background: #f3f4f6;
 }
 
 .app {
@@ -13,36 +14,17 @@ body {
     min-height: 100vh;
 }
 
-.sidebar {
-    width: 260px;
-    background: #111827;
-    color: white;
-    padding: 20px;
-}
-
-.logo {
-    margin-bottom: 30px;
-}
-
-.logo h2 {
-    font-size: 24px;
-}
-
-.sidebar ul {
-    list-style: none;
-}
-
-.sidebar li {
-    padding: 12px 0;
-    cursor: pointer;
-}
-
-.sidebar li:hover {
-    color: #60a5fa;
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .main-content {
     flex: 1;
-    padding: 40px;
-    background: #f3f4f6;
+    padding: 30px;
+}
+
+h1 {
+    font-size: 32px;
 }
