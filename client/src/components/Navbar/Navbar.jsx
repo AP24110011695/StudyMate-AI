@@ -1,17 +1,46 @@
 import "./Navbar.css";
+import { Search, Bell } from "lucide-react";
 
-function Navbar() {
+function Navbar({ search, setSearch }) {
+
   return (
+
     <header className="navbar">
-      <div className="search-box">
-        <input type="text" placeholder="Search your PDFs..." />
+
+      <div className="search">
+
+        <Search size={18}/>
+
+        <input
+
+          value={search}
+
+          onChange={(e)=>setSearch(e.target.value)}
+
+          placeholder="Search PDFs..."
+
+        />
+
       </div>
 
-      <div className="profile">
-        <span>👤 Ayush</span>
+      <div className="right">
+
+        <Bell size={20}/>
+
+        <img
+
+          src="https://i.pravatar.cc/40"
+
+          alt=""
+
+        />
+
       </div>
+
     </header>
-  );
+
+  )
+
 }
 
 export default Navbar;

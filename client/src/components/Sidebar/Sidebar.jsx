@@ -1,22 +1,46 @@
 import "./Sidebar.css";
+import { useState } from "react";
+import {
+  LayoutDashboard,
+  FileText,
+  MessageSquare,
+  NotebookPen,
+  Brain,
+  Layers3,
+  Settings,
+} from "lucide-react";
+
 function Sidebar() {
+  const [active, setActive] = useState("Dashboard");
+
+  const menu = [
+    { name: "Dashboard", icon: <LayoutDashboard size={20} /> },
+    { name: "My PDFs", icon: <FileText size={20} /> },
+    { name: "AI Chat", icon: <MessageSquare size={20} /> },
+    { name: "Notes", icon: <NotebookPen size={20} /> },
+    { name: "Quiz", icon: <Brain size={20} /> },
+    { name: "Flashcards", icon: <Layers3 size={20} /> },
+    { name: "Settings", icon: <Settings size={20} /> },
+  ];
+
   return (
     <aside className="sidebar">
       <div className="logo">
         <h2>StudyMate AI</h2>
       </div>
 
-      <nav>
-        <ul>
-          <li>📊 Dashboard</li>
-          <li>📄 My PDFs</li>
-          <li>💬 AI Chat</li>
-          <li>📝 Notes</li>
-          <li>❓ Quiz</li>
-          <li>🃏 Flashcards</li>
-          <li>⚙️ Settings</li>
-        </ul>
-      </nav>
+      <ul>
+        {menu.map((item) => (
+          <li
+            key={item.name}
+            className={active === item.name ? "active" : ""}
+            onClick={() => setActive(item.name)}
+          >
+            {item.icon}
+            <span>{item.name}</span>
+          </li>
+        ))}
+      </ul>
     </aside>
   );
 }

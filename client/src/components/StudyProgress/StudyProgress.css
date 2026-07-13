@@ -1,0 +1,63 @@
+.progress-card {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+
+}
+
+.progress {
+
+    width: 180px;
+
+    height: 180px;
+
+    border-radius: 50%;
+
+    background: #e5e7eb;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    margin: 25px auto;
+
+}
+
+.progress-fill {
+
+    width: 145px;
+
+    height: 145px;
+
+    border-radius: 50%;
+
+    background: #2563eb;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: white;
+
+    font-size: 34px;
+
+    font-weight: bold;
+
+}
+
+.progress-card p {
+
+    text-align: center;
+
+    color: #6b7280;
+
+}

@@ -1,30 +1,82 @@
 .dashboard-card {
+
     background: white;
-    border-radius: 16px;
+
     padding: 24px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+
+    border-radius: 18px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+
+    transition: .25s;
+
+}
+
+.dashboard-card:hover {
+
+    transform: translateY(-5px);
+
 }
 
 .card-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 14px;
+
+    width: 65px;
+
+    height: 65px;
+
     background: #2563eb;
-    color: white;
+
+    border-radius: 15px;
+
     display: flex;
-    align-items: center;
+
     justify-content: center;
-    font-size: 28px;
+
+    align-items: center;
+
+    font-size: 30px;
+
+    margin-bottom: 20px;
+
+    color: white;
+
 }
 
 .dashboard-card h4 {
+
     color: #6b7280;
-    margin-bottom: 6px;
+
+    margin-bottom: 8px;
+
 }
 
-.dashboard-card h2 {
-    font-size: 28px;
+.dashboard-card h1 {
+
+    font-size: 40px;
+
+}
+.dashboard-card {
+
+    animation: fadeUp .5s ease;
+
+}
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(25px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
 }

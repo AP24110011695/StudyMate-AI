@@ -1,0 +1,58 @@
+.welcome-card {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+}
+
+.welcome-card h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.welcome-card p {
+    color: #6b7280;
+}
+
+.welcome-card button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.welcome-card button:hover {
+    background: #1d4ed8;
+}
+.welcome-card {
+
+    animation: fade .6s;
+
+}
+
+@keyframes fade {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(-20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}

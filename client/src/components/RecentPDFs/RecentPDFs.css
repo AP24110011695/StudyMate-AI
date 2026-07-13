@@ -1,0 +1,99 @@
+.recent-pdfs {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+
+}
+
+.recent-pdfs h2 {
+
+    margin-bottom: 20px;
+
+}
+
+.pdf-card {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    background: #f8fafc;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    margin-bottom: 12px;
+
+}
+
+.left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+}
+
+.delete-btn {
+
+    background: #ef4444;
+
+    border: none;
+
+    color: white;
+
+    width: 34px;
+
+    height: 34px;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+}
+
+.delete-btn:hover {
+
+    background: #dc2626;
+
+}
+.empty-state {
+
+    text-align: center;
+
+    padding: 50px;
+
+    color: #6b7280;
+
+}
+.left div {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+.left h4 {
+
+    font-size: 16px;
+
+    margin-bottom: 5px;
+
+}
+
+.left small {
+
+    color: #6b7280;
+
+}
