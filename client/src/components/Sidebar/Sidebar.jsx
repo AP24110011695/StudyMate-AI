@@ -1,5 +1,5 @@
 import "./Sidebar.css";
-import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
   FileText,
@@ -11,16 +11,14 @@ import {
 } from "lucide-react";
 
 function Sidebar() {
-  const [active, setActive] = useState("Dashboard");
-
   const menu = [
-    { name: "Dashboard", icon: <LayoutDashboard size={20} /> },
-    { name: "My PDFs", icon: <FileText size={20} /> },
-    { name: "AI Chat", icon: <MessageSquare size={20} /> },
-    { name: "Notes", icon: <NotebookPen size={20} /> },
-    { name: "Quiz", icon: <Brain size={20} /> },
-    { name: "Flashcards", icon: <Layers3 size={20} /> },
-    { name: "Settings", icon: <Settings size={20} /> },
+    { name: "Dashboard", path: "/dashboard", icon: <LayoutDashboard size={20} /> },
+    { name: "My PDFs", path: "/my-pdfs", icon: <FileText size={20} /> },
+    { name: "AI Chat", path: "/chat", icon: <MessageSquare size={20} /> },
+    { name: "Notes", path: "/notes", icon: <NotebookPen size={20} /> },
+    { name: "Quiz", path: "/quiz", icon: <Brain size={20} /> },
+    { name: "Flashcards", path: "/flashcards", icon: <Layers3 size={20} /> },
+    { name: "Settings", path: "/settings", icon: <Settings size={20} /> },
   ];
 
   return (
@@ -31,13 +29,14 @@ function Sidebar() {
 
       <ul>
         {menu.map((item) => (
-          <li
-            key={item.name}
-            className={active === item.name ? "active" : ""}
-            onClick={() => setActive(item.name)}
-          >
-            {item.icon}
-            <span>{item.name}</span>
+          <li key={item.name}>
+            <NavLink
+              to={item.path}
+              className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
+            >
+              {item.icon}
+              <span>{item.name}</span>
+            </NavLink>
           </li>
         ))}
       </ul>

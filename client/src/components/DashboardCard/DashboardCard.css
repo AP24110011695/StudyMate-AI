@@ -1,18 +1,3 @@
-.dashboard-card {
-    background: white;
-    padding: 28px;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-    border: 1px solid rgba(0, 0, 0, 0.03);
-    transition: all 0.3s ease;
-    animation: fadeUp .5s ease;
-}
-
-.dashboard-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
-}
-
 .card-icon {
     width: 60px;
     height: 60px;
@@ -36,15 +21,4 @@
 .dashboard-card h1 {
     font-size: 38px;
     color: #111827;
-}
-
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }

@@ -1,0 +1,134 @@
+.chat-page {
+  display: flex;
+  gap: 24px;
+  height: calc(100vh - 100px);
+}
+.chat-sidebar {
+  width: 250px;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  overflow-y: auto;
+}
+.chat-sidebar h3 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #4b5563;
+}
+.chat-history-item {
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+.chat-history-item:hover {
+  background: #f3f4f6;
+}
+.chat-main {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+.chat-messages {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.empty-chat {
+  margin: auto;
+  color: #9ca3af;
+  font-size: 16px;
+}
+.message-bubble {
+  max-width: 70%;
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.message-bubble.user {
+  background: #2563eb;
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+.message-bubble.ai {
+  background: #f3f4f6;
+  color: #1f2937;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.message-bubble.typing {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 16px 20px;
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  background: #9ca3af;
+  border-radius: 50%;
+  animation: blink 1.4s infinite both;
+}
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes blink {
+  0%, 100% { opacity: 0.2; }
+  20% { opacity: 1; }
+}
+.chat-input-area {
+  padding: 20px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  gap: 12px;
+}
+.chat-input-area input {
+  flex: 1;
+  padding: 14px 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  outline: none;
+  font-size: 15px;
+}
+.chat-input-area input:focus {
+  border-color: #2563eb;
+}
+.chat-input-area button {
+  padding: 0 24px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.chat-input-area button:hover {
+  background: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  .chat-page {
+    flex-direction: column;
+    height: auto;
+  }
+  .chat-sidebar {
+    width: 100%;
+    max-height: 200px;
+  }
+  .chat-main {
+    height: 500px;
+  }
+}

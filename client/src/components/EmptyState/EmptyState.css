@@ -1,0 +1,41 @@
+.empty-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  background: white;
+  border-radius: 16px;
+  border: 2px dashed #e5e7eb;
+  margin: 20px 0;
+}
+
+.empty-state-icon-wrapper {
+  background: #eff6ff;
+  padding: 20px;
+  border-radius: 50%;
+  margin-bottom: 24px;
+}
+
+.empty-state-icon {
+  color: #2563eb;
+}
+
+.empty-state-title {
+  font-size: 20px;
+  color: #111827;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.empty-state-description {
+  color: #6b7280;
+  max-width: 400px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.empty-state-btn {
+  padding: 12px 28px !important;
+}

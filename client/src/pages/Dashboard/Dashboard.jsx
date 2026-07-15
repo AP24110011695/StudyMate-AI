@@ -18,10 +18,17 @@ function Dashboard() {
   });
   const [search, setSearch] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     localStorage.setItem("pdfs", JSON.stringify(pdfs));
   }, [pdfs]);
+
+  useEffect(() => {
+    // Simulate loading state
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const filteredPdfs = pdfs.filter(pdf => 
     pdf.name.toLowerCase().includes(search.toLowerCase())
@@ -49,20 +56,22 @@ function Dashboard() {
       <div className="content">
         <Navbar search={search} setSearch={setSearch} />
         
-        <main className="main-content">
+        <main className="main-content page-enter">
           <WelcomeCard onUpload={handleUpload} />
 
           <div className="cards">
-            <DashboardCard title="Uploaded PDFs" value={pdfs.length} icon="📄" />
-            <DashboardCard title="AI Chats" value="12" icon="💬" />
-            <DashboardCard title="Notes" value="28" icon="📓" />
-            <DashboardCard title="Quizzes" value="5" icon="📝" />
+            <DashboardCard title="Uploaded PDFs" value={pdfs.length} icon="📄" isLoading={isLoading} />
+            <DashboardCard title="AI Chats" value="12" icon="💬" isLoading={isLoading} />
+            <DashboardCard title="Notes" value="28" icon="📓" isLoading={isLoading} />
+            <DashboardCard title="Quizzes" value="5" icon="📝" isLoading={isLoading} />
           </div>
 
           <div className="bottom-section">
             <RecentPDFs
               pdfs={filteredPdfs}
               onDelete={handleDelete}
+              isLoading={isLoading}
+              onUpload={handleUpload}
             />
             <StudyProgress />
           </div>

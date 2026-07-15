@@ -1,33 +1,58 @@
 import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
 import "./Login.css";
 
 function Login() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
+  const handleLogin = () => {
+    if (!email || !password) {
+      setError("Please fill in all fields.");
+      return;
+    }
+    setError("");
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      navigate("/dashboard");
+    }, 800);
+  };
 
   return (
-    <div className="auth-page">
-
-      <div className="auth-card">
-
+    <div className="auth-page page-enter">
+      <div className="card auth-card">
         <h1>StudyMate AI</h1>
-
         <p>Welcome Back</p>
 
-        <input
-          type="email"
-          placeholder="Email"
-        />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px', textAlign: 'left' }}>
+          <input
+            type="email"
+            className={`form-input ${error && !email ? 'error' : ''}`}
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <div>
+            <input
+              type="password"
+              className={`form-input ${error && !password ? 'error' : ''}`}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {error && <span className="error-text">{error}</span>}
+          </div>
+        </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-        />
-
-        <button onClick={() => navigate("/dashboard")}>Login</button>
-<p className="auth-link">Don't have an account? <Link to="/register">Create Account</Link></p>
-
+        <button className="btn btn-primary" onClick={handleLogin} disabled={loading} style={{ width: '100%' }}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
+        <p className="auth-link">Don't have an account? <Link to="/register">Create Account</Link></p>
       </div>
-
     </div>
   );
 }

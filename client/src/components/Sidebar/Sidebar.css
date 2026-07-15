@@ -21,9 +21,10 @@
 
 .sidebar ul {
     list-style: none;
+    padding: 0;
 }
 
-.sidebar li {
+.sidebar .nav-item {
     display: flex;
     align-items: center;
     gap: 16px;
@@ -33,20 +34,22 @@
     font-size: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-decoration: none;
+    color: white;
 }
 
-.sidebar li:hover {
+.sidebar .nav-item:hover {
     background: #1f2937;
     transform: translateX(4px);
 }
 
-.sidebar li.active {
+.sidebar .nav-item.active {
     background: linear-gradient(135deg, #2563eb, #1d4ed8);
     box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
     color: white;
     font-weight: 600;
 }
 
-.sidebar li.active svg {
+.sidebar .nav-item.active svg {
     color: white;
 }

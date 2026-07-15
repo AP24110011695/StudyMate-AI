@@ -1,0 +1,102 @@
+.flashcards-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.flashcards-page h2 {
+  align-self: flex-start;
+  margin-bottom: 40px;
+}
+.flashcard-container {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 600px;
+  height: 350px;
+  cursor: pointer;
+  margin-bottom: 40px;
+}
+.flashcard {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.flashcard.flipped {
+  transform: rotateY(180deg);
+}
+.flashcard-front, .flashcard-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  text-align: center;
+}
+.flashcard-front h3, .flashcard-back h3 {
+  font-size: 28px;
+  color: #111827;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+.flashcard-front p {
+  color: #9ca3af;
+  font-size: 14px;
+  position: absolute;
+  bottom: 20px;
+}
+.flashcard-back {
+  transform: rotateY(180deg);
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+}
+.flashcard-back h3 {
+  color: #1e40af;
+  font-size: 22px;
+}
+.flashcard-controls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.flashcard-controls button {
+  padding: 12px 24px;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #374151;
+  transition: all 0.2s;
+}
+.flashcard-controls button:hover:not(:disabled) {
+  background: #f3f4f6;
+}
+.flashcard-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.flashcard-controls span {
+  font-weight: 600;
+  color: #6b7280;
+  min-width: 50px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .flashcard-container {
+    height: 300px;
+  }
+  .flashcard-front h3 {
+    font-size: 22px;
+  }
+}

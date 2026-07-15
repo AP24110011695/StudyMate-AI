@@ -42,8 +42,8 @@ function UploadModal({ open, onClose, onFileSelect }) {
   }
 
   return(
-    <div className="overlay">
-      <div className="modal">
+    <div className="overlay" style={{ animation: 'fadeUp 0.3s forwards' }}>
+      <div className="card modal">
         <h2>Upload PDF</h2>
 
         {error && <div className="error-message" style={{ color: "red", marginBottom: "10px", textAlign: "center" }}>{error}</div>}
@@ -56,7 +56,7 @@ function UploadModal({ open, onClose, onFileSelect }) {
           <h1>📄</h1>
           <h3>Drag & Drop PDF Here</h3>
           <p>or</p>
-          <label className="browse">
+          <label className="btn btn-outline browse" style={{ marginTop: 10 }}>
             Browse File
             <input
               type="file"
@@ -68,7 +68,7 @@ function UploadModal({ open, onClose, onFileSelect }) {
           </label>
         </div>
 
-        <button onClick={handleClose}>
+        <button className="btn btn-outline" onClick={handleClose} style={{ width: '100%', marginTop: 20 }}>
           Close
         </button>
       </div>
