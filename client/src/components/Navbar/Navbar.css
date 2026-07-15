@@ -1,76 +1,71 @@
 .navbar {
-
-    height: 75px;
-
+    height: 80px;
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
-    padding: 0 35px;
-
-    background: white;
-
-    border-bottom: 1px solid #ececec;
-
+    padding: 0 40px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .search {
-
     display: flex;
-
     align-items: center;
-
-    gap: 10px;
-
-    background: #f5f5f5;
-
-    padding: 10px 16px;
-
-    border-radius: 12px;
-
-    width: 340px;
-
+    gap: 12px;
+    background: #f3f4f6;
+    padding: 12px 20px;
+    border-radius: 50px;
+    width: 400px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
 }
 
 .search input {
-
     border: none;
-
     background: none;
-
     outline: none;
-
     width: 100%;
-
     font-size: 15px;
+    color: #1f2937;
+}
 
+.search input::placeholder {
+    color: #9ca3af;
 }
 
 .right {
-
     display: flex;
-
     align-items: center;
+    gap: 24px;
+}
 
-    gap: 22px;
+.right svg {
+    color: #6b7280;
+    cursor: pointer;
+    transition: color 0.2s;
+}
 
+.right svg:hover {
+    color: #1f2937;
 }
 
 .right img {
-
     border-radius: 50%;
-
+    cursor: pointer;
+    border: 2px solid #e5e7eb;
+    transition: border-color 0.2s;
 }
-.search {
 
-    transition: .25s;
-
+.right img:hover {
+    border-color: #2563eb;
 }
 
 .search:focus-within {
-
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, .15);
-
+    background: #ffffff;
+    border-color: #bfdbfe;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }

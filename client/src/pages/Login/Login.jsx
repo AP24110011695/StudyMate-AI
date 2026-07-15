@@ -1,15 +1,35 @@
-function Login(){
+import "./Login.css";
 
-return(
+function Login() {
+  return (
+    <div className="auth-page">
 
-<h1>
+      <div className="auth-card">
 
-Login Page
+        <h1>StudyMate AI</h1>
 
-</h1>
+        <p>Welcome Back</p>
 
-)
+        <input
+          type="email"
+          placeholder="Email"
+        />
 
+        <input
+          type="password"
+          placeholder="Password"
+        />
+
+        <button>
+
+          Login
+
+        </button>
+
+      </div>
+
+    </div>
+  );
 }
 
 export default Login;
