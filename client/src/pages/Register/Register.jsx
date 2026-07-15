@@ -1,6 +1,8 @@
 import "./Register.css";
+import { useNavigate, Link } from "react-router-dom";
 
 function Register(){
+  const navigate = useNavigate();
 
 return(
 
@@ -23,11 +25,12 @@ type="password"
 placeholder="Password"
 />
 
-<button>
+        <button onClick={() => navigate("/dashboard")}>
 
 Create Account
 
-</button>
+        </button>
+        <p className="auth-link">Already have an account? <Link to="/login">Login</Link></p>
 
 </div>
 
