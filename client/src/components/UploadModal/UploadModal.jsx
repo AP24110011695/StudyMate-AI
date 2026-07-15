@@ -8,7 +8,7 @@ function UploadModal({ open, onClose, onFileSelect }) {
 
     e.preventDefault();
 
-    const files = Array.from(e.target.files);
+    const files = Array.from(e.dataTransfer.files);
 
 files.forEach(file => onFileSelect(file));
 
@@ -24,7 +24,7 @@ onClose();
 
   function handleInput(e){
 
-    const files = Array.from(e.dataTransfer.files);
+    const files = Array.from(e.target.files);
 
 files.forEach(file => onFileSelect(file));
 
