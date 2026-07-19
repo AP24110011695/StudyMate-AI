@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import MyPDFs from "./pages/MyPDFs/MyPDFs";
 import Chat from "./pages/Chat/Chat";
 import Notes from "./pages/Notes/Notes";
 import Quiz from "./pages/Quiz/Quiz";
@@ -17,7 +18,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/my-pdfs" element={<Navigate to="/dashboard" replace />} />
+      <Route path="/my-pdfs" element={<MyPDFs />} />
       <Route path="/chat" element={<Chat />} />
       <Route path="/notes" element={<Notes />} />
       <Route path="/quiz" element={<Quiz />} />
