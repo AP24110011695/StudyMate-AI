@@ -1,17 +1,23 @@
 const mongoose = require('mongoose');
 
+// Validate required environment variables
+const validateEnv = () => {
+  const required = ['PORT', 'MONGODB_URI', 'JWT_SECRET', 'GEMINI_API_KEY'];
+  const missing = required.filter(key => !process.env[key]);
+  
+  if (missing.length > 0) {
+    throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
+  }
+};
+
 const connectDB = async () => {
   try {
+    // Validate environment variables before connecting
+    validateEnv();
+    
     const mongoURI = process.env.MONGODB_URI;
 
-    if (!mongoURI) {
-      throw new Error('MONGODB_URI is not defined in environment variables');
-    }
-
-    const conn = await mongoose.connect(mongoURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const conn = await mongoose.connect(mongoURI);
 
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
     
