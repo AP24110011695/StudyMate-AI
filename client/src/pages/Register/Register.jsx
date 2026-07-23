@@ -1,6 +1,7 @@
 import "./Register.css";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 function Register() {
   const navigate = useNavigate();
@@ -10,17 +11,23 @@ function Register() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleRegister = () => {
+  const { register } = useAuth();
+
+  const handleRegister = async () => {
     if (!name || !email || !password) {
       setError("Please fill in all fields.");
       return;
     }
     setError("");
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      await register(name, email, password);
       navigate("/dashboard");
-    }, 800);
+    } catch (err) {
+      setError(err.message || "Failed to register");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

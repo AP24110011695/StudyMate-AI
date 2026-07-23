@@ -21,23 +21,13 @@ import {
   Clock,
   Heart
 } from "lucide-react";
+import { usePdf } from "../../context/PdfContext";
 import "./MyPDFs.css";
 
 function MyPDFs() {
-  const [pdfs, setPdfs] = useState(() => {
-    const savedPdfs = localStorage.getItem("pdfs");
-    if (savedPdfs) {
-      return JSON.parse(savedPdfs);
-    }
-    return [];
-  });
-  const [favorites, setFavorites] = useState(() => {
-    const savedFavorites = localStorage.getItem("pdfFavorites");
-    if (savedFavorites) {
-      return JSON.parse(savedFavorites);
-    }
-    return [];
-  });
+  const { pdfs, loading: isLoading, uploadPdf, deletePdf, renamePdf, toggleFavorite } = usePdf();
+  const favorites = pdfs.filter(pdf => pdf.isFavorite).map(pdf => pdf.name);
+  
   const [viewMode, setViewMode] = useState(() => {
     const savedView = localStorage.getItem("pdfViewMode");
     return savedView || "grid";
@@ -52,21 +42,8 @@ function MyPDFs() {
   const [newName, setNewName] = useState("");
 
   useEffect(() => {
-    localStorage.setItem("pdfs", JSON.stringify(pdfs));
-  }, [pdfs]);
-
-  useEffect(() => {
-    localStorage.setItem("pdfFavorites", JSON.stringify(favorites));
-  }, [favorites]);
-
-  useEffect(() => {
     localStorage.setItem("pdfViewMode", viewMode);
   }, [viewMode]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 800);
-    return () => clearTimeout(timer);
-  }, []);
 
   const filteredAndSortedPdfs = pdfs
     .filter((pdf) => {
@@ -103,60 +80,54 @@ function MyPDFs() {
 
   const handleUpload = () => setModalOpen(true);
 
-  const handleFileSelect = (file) => {
-    const newPdf = {
-      name: file.name,
-      size: (file.size / (1024 * 1024)).toFixed(1),
-      uploadedAt: new Date().toISOString(),
-      lastOpened: null
-    };
-    setPdfs((prevPdfs) => [newPdf, ...prevPdfs]);
+  const handleFileSelect = async (file) => {
+    try {
+      await uploadPdf(file);
+      setModalOpen(false);
+    } catch (error) {
+      console.error('Upload failed', error);
+      alert('Failed to upload PDF');
+    }
   };
 
-  const handleDelete = (pdfName) => {
-    setPdfs((prevPdfs) => prevPdfs.filter((pdf) => pdf.name !== pdfName));
-    setFavorites((prevFavs) => prevFavs.filter((fav) => fav !== pdfName));
-    setMenuOpen(null);
-  };
-
-  const handleToggleFavorite = (pdfName, e) => {
-    e.stopPropagation();
-    setFavorites((prevFavs) => {
-      if (prevFavs.includes(pdfName)) {
-        return prevFavs.filter((fav) => fav !== pdfName);
-      } else {
-        return [...prevFavs, pdfName];
+  const handleDelete = async (pdfId) => {
+    if (window.confirm("Are you sure you want to delete this PDF? This action cannot be undone.")) {
+      try {
+        await deletePdf(pdfId);
+        setMenuOpen(null);
+      } catch (error) {
+        console.error('Delete failed', error);
       }
-    });
+    }
+  };
+
+  const handleToggleFavorite = async (pdfId, e) => {
+    e.stopPropagation();
+    try {
+      await toggleFavorite(pdfId);
+    } catch (error) {
+      console.error('Toggle favorite failed', error);
+    }
   };
 
   const handleOpen = (pdfName) => {
-    setPdfs((prevPdfs) =>
-      prevPdfs.map((pdf) =>
-        pdf.name === pdfName
-          ? { ...pdf, lastOpened: new Date().toISOString() }
-          : pdf
-      )
-    );
+    setMenuOpen(null);
+    // TODO: implement open logic, e.g. navigate to notes or chat
+  };
+
+  const handleRename = (pdfId, currentName) => {
+    setEditingPdf(pdfId);
+    setNewName(currentName);
     setMenuOpen(null);
   };
 
-  const handleRename = (pdfName) => {
-    setEditingPdf(pdfName);
-    setNewName(pdfName);
-    setMenuOpen(null);
-  };
-
-  const saveRename = () => {
-    if (newName && newName !== editingPdf) {
-      setPdfs((prevPdfs) =>
-        prevPdfs.map((pdf) =>
-          pdf.name === editingPdf ? { ...pdf, name: newName } : pdf
-        )
-      );
-      setFavorites((prevFavs) =>
-        prevFavs.map((fav) => (fav === editingPdf ? newName : fav))
-      );
+  const saveRename = async () => {
+    if (newName && editingPdf) {
+      try {
+        await renamePdf(editingPdf, newName);
+      } catch (error) {
+        console.error('Rename failed', error);
+      }
     }
     setEditingPdf(null);
     setNewName("");
@@ -167,9 +138,9 @@ function MyPDFs() {
     setNewName("");
   };
 
-  const toggleMenu = (pdfName, e) => {
+  const toggleMenu = (pdfId, e) => {
     e.stopPropagation();
-    setMenuOpen(menuOpen === pdfName ? null : pdfName);
+    setMenuOpen(menuOpen === pdfId ? null : pdfId);
   };
 
   const getTotalStorage = () => {
@@ -336,7 +307,7 @@ function MyPDFs() {
                     <FileText size={32} className="pdf-icon" />
                   </div>
 
-                  {editingPdf === pdf.name ? (
+                  {editingPdf === pdf._id ? (
                     <div className="rename-form">
                       <input
                         type="text"
@@ -380,10 +351,10 @@ function MyPDFs() {
                       <div className="pdf-actions">
                         <button
                           className="action-btn favorite-btn"
-                          onClick={(e) => handleToggleFavorite(pdf.name, e)}
-                          title={favorites.includes(pdf.name) ? "Remove from favorites" : "Add to favorites"}
+                          onClick={(e) => handleToggleFavorite(pdf._id, e)}
+                          title={pdf.isFavorite ? "Remove from favorites" : "Add to favorites"}
                         >
-                          {favorites.includes(pdf.name) ? (
+                          {pdf.isFavorite ? (
                             <Star size={18} className="star-filled" />
                           ) : (
                             <StarOff size={18} />
@@ -392,7 +363,7 @@ function MyPDFs() {
 
                         <button
                           className="action-btn open-btn"
-                          onClick={() => handleOpen(pdf.name)}
+                          onClick={() => handleOpen(pdf._id)}
                           title="Open PDF"
                         >
                           <ExternalLink size={18} />
@@ -401,33 +372,33 @@ function MyPDFs() {
                         <div className="action-menu">
                           <button
                             className="action-btn menu-btn"
-                            onClick={(e) => toggleMenu(pdf.name, e)}
+                            onClick={(e) => toggleMenu(pdf._id, e)}
                             title="More options"
                           >
                             <MoreVertical size={18} />
                           </button>
 
-                          {menuOpen === pdf.name && (
+                          {menuOpen === pdf._id && (
                             <div className="menu-dropdown">
                               <button
                                 className="menu-item"
-                                onClick={() => handleOpen(pdf.name)}
+                                onClick={() => handleOpen(pdf._id)}
                               >
                                 <ExternalLink size={16} />
                                 Open
                               </button>
                               <button
                                 className="menu-item"
-                                onClick={() => handleRename(pdf.name)}
+                                onClick={() => handleRename(pdf._id, pdf.name)}
                               >
                                 <Edit2 size={16} />
                                 Rename
                               </button>
                               <button
                                 className="menu-item"
-                                onClick={(e) => handleToggleFavorite(pdf.name, e)}
+                                onClick={(e) => handleToggleFavorite(pdf._id, e)}
                               >
-                                {favorites.includes(pdf.name) ? (
+                                {pdf.isFavorite ? (
                                   <>
                                     <StarOff size={16} />
                                     Remove Favorite
@@ -441,7 +412,7 @@ function MyPDFs() {
                               </button>
                               <button
                                 className="menu-item delete"
-                                onClick={() => handleDelete(pdf.name)}
+                                onClick={() => handleDelete(pdf._id)}
                               >
                                 <Trash2 size={16} />
                                 Delete

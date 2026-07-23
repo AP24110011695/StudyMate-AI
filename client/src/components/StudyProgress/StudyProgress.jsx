@@ -10,15 +10,11 @@ return(
 
 <div className="progress">
 
-<div className="progress-fill">
-
-75%
-
+<div className="progress-fill" style={{width: '0%'}}>
+0%
 </div>
-
 </div>
-
-<p>18 hours studied this week.</p>
+<p>0 hours studied this week.</p>
 
 </div>
 
